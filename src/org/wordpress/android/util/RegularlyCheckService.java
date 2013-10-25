@@ -122,7 +122,7 @@ public class RegularlyCheckService extends Service {
         }
 
         AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        alarm.setRepeating(AlarmManager.ELAPSED_REALTIME, 10 * 1000, intervalMinute * MINUTE_TO_MILLS, pendingIntent);
+        alarm.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 10 * 1000, intervalMinute * MINUTE_TO_MILLS, pendingIntent);
         printLog("begin regularly runnable, interval is " + intervalMinute + " minutes");
     }
 
