@@ -228,7 +228,9 @@ public class RegularlyCheckService extends Service {
                                                                                                                 commentBlog))
                                                                                  .setContentText(commentContent)
                                                                                  .setTicker(getString(R.string.comment_noti_ticker))
-                                                                                 .setAutoCancel(true);
+                                                                                 .setAutoCancel(true)
+                                                                                 .setVibrate(new long[] { 0, 2 })
+                                                                                 .setLights(0xff00ff00, 300, 100);
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         Intent intent = new Intent(context, CommentsActivity.class);
         Bundle extras = new Bundle();

@@ -433,7 +433,7 @@ public class PreferencesActivity extends SherlockPreferenceActivity {
             wpcomCategory.addPreference(signInPref);
             
             PreferenceScreen rootScreen = (PreferenceScreen)findPreference("wp_pref_root");
-//            rootScreen.removePreference(mNotificationsGroup);
+            rootScreen.removePreference(mNotificationsGroup);
         }
     }
 
@@ -472,7 +472,7 @@ public class PreferencesActivity extends SherlockPreferenceActivity {
 
         String settingsJson = settings.getString("wp_pref_notification_settings", null);
         if (settingsJson == null) {
-//            rootScreen.removePreference(mNotificationsGroup);
+            rootScreen.removePreference(mNotificationsGroup);
             return;
         } else {
             try {
