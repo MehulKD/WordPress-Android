@@ -11,6 +11,7 @@ import java.util.Map;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -38,6 +39,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.internal.StringMap;
 
+import org.wordpress.android.util.RegularlyCheckService;
 import org.wordpress.android.util.StringUtils;
 import org.xmlrpc.android.WPComXMLRPCApi;
 import org.xmlrpc.android.XMLRPCCallback;
@@ -53,6 +55,7 @@ import org.wordpress.android.util.DeviceUtils;
 @SuppressWarnings("deprecation")
 public class PreferencesActivity extends SherlockPreferenceActivity {
 
+    EditTextPreference commentNotiIntervalPreference;
     EditTextPreference taglineTextPreference;
     OnPreferenceChangeListener preferenceChangeListener;
     
@@ -98,6 +101,37 @@ public class PreferencesActivity extends SherlockPreferenceActivity {
         taglineTextPreference = (EditTextPreference) findPreference("wp_pref_post_signature");
         taglineTextPreference.setOnPreferenceChangeListener(preferenceChangeListener);
         
+        // added by trinea.cn for regular comment check
+        commentNotiIntervalPreference = (EditTextPreference)findPreference("wp_pref_comment_setting_interval");
+        commentNotiIntervalPreference.setSummary(String.format(getString(R.string.comment_setting_interval_summary),
+                                                               getOldCommentInterval()));
+        commentNotiIntervalPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                int interval = 0;
+                try {
+                    interval = Integer.parseInt((String)newValue);
+                } catch (Exception e) {
+                }
+                if (interval > 0) {
+                    Context context = getApplicationContext();
+                    if (getOldCommentInterval() == interval) {
+                        return false;
+                    }
+
+                    commentNotiIntervalPreference.setSummary(String.format(getString(R.string.comment_setting_interval_summary),
+                                                                           interval));
+                    RegularlyCheckService.printLog("change interval");
+                    Intent i = new Intent(context, RegularlyCheckService.class);
+                    i.setAction(RegularlyCheckService.ACTION_CHANGE_INTERVAL);
+                    startService(i);
+                    return true;
+                }
+                return false;
+            }
+        });
+        
         Preference signOutPreference = (Preference) findPreference("wp_pref_sign_out");
         signOutPreference.setOnPreferenceClickListener(signOutPreferenceClickListener);
         
@@ -120,6 +154,16 @@ public class PreferencesActivity extends SherlockPreferenceActivity {
         }
 
         displayPreferences();
+    }
+    
+    private int getOldCommentInterval() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        int oldValue = getResources().getInteger(R.integer.comment_setting_interval);
+        try {
+            oldValue = Integer.parseInt(pref.getString("wp_pref_comment_setting_interval", ""));
+        } catch (Exception e) {
+        }
+        return oldValue;
     }
 
     @Override
@@ -389,7 +433,7 @@ public class PreferencesActivity extends SherlockPreferenceActivity {
             wpcomCategory.addPreference(signInPref);
             
             PreferenceScreen rootScreen = (PreferenceScreen)findPreference("wp_pref_root");
-            rootScreen.removePreference(mNotificationsGroup);
+//            rootScreen.removePreference(mNotificationsGroup);
         }
     }
 
@@ -428,7 +472,7 @@ public class PreferencesActivity extends SherlockPreferenceActivity {
 
         String settingsJson = settings.getString("wp_pref_notification_settings", null);
         if (settingsJson == null) {
-            rootScreen.removePreference(mNotificationsGroup);
+//            rootScreen.removePreference(mNotificationsGroup);
             return;
         } else {
             try {

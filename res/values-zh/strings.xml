@@ -314,6 +314,15 @@
 	<string name="publish">发布?</string>
 	<string name="yes">是</string>
 	<string name="no">否</string>
+	
+	<!-- added by trinea.cn for regular comment check -->
+	<string name="comment_noti_ticker">您的博客有新评论啦</string>
+	<string name="comment_noti_title">%1$s评论了%2$s</string>
+	<string name="comment_setting_title">新评论通知</string>
+	<string name="comment_setting_is_wifi_title">仅wifi</string>
+	<string name="comment_setting_interval_title">时间间隔</string>
+	<string name="comment_setting_interval_summary">以分钟为单位, 当前为%1$s分钟</string>
+	
 	<string-array name="alignment_array">
 		<item>不对齐</item>
 		<item>居左</item>

@@ -44,6 +44,21 @@
         </PreferenceScreen>
     </PreferenceCategory>
 
+    <!-- added by trinea.cn for regular comment check -->
+    <PreferenceCategory
+        android:title="@string/comment_setting_title" >
+        <CheckBoxPreference
+            android:defaultValue="@bool/comment_setting_is_wifi"
+            android:key="wp_pref_comment_setting_is_wifi"
+            android:title="@string/comment_setting_is_wifi_title" />
+
+        <EditTextPreference
+            android:key="wp_pref_comment_setting_interval"
+            android:title="@string/comment_setting_interval_title"
+            android:summary="@string/comment_setting_interval_summary"
+            android:defaultValue="@integer/comment_setting_interval" />
+    </PreferenceCategory>
+    
     <PreferenceCategory
         android:title="@string/post_signature" >
         <CheckBoxPreference

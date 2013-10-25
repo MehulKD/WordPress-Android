@@ -422,7 +422,16 @@
   <string name="error_media_upload">An error occurred while uploading media</string>
   <string name="login_limit">You have exceeded the login limit. Please ensure your login credentials are correct and try again in a few minutes.</string>
   <string name="fatal_db_error">So sorry, but an error occurred while attempting to create the app database. Please try reinstalling the app.</string>
-  
+
+  	
+  <!-- added by trinea.cn for regular comment check -->
+  <string name="comment_noti_ticker">Your blog has new comment</string>
+  <string name="comment_noti_title">%1$s comment %2$s</string>
+  <string name="comment_setting_title">New comment notification</string>
+  <string name="comment_setting_is_wifi_title">Only wifi</string>
+  <string name="comment_setting_interval_title">Interval</string>
+  <string name="comment_setting_interval_summary">In minutes, current is %1$s minutes</string>
+	
   <!--  Image Descriptions for Accessibility -->
   <string name="content_description_add_media">Add media</string>
     <string name="error_load_comment">Sorry, could not load the comment. Please try again.</string>

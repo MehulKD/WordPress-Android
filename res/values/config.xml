@@ -1,0 +1,5 @@
+<resources>
+    <!-- added by trinea.cn for regular comment check -->
+    <bool name="comment_setting_is_wifi">true</bool>
+    <integer name="comment_setting_interval">30</integer>
+</resources>

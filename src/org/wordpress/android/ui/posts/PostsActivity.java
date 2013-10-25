@@ -40,6 +40,7 @@ import org.wordpress.android.ui.posts.ViewPostFragment.OnDetailPostActionListene
 import org.wordpress.android.ui.posts.PostsListFragment.OnPostActionListener;
 import org.wordpress.android.ui.posts.PostsListFragment.OnPostSelectedListener;
 import org.wordpress.android.ui.posts.PostsListFragment.OnRefreshListener;
+import org.wordpress.android.util.RegularlyCheckService;
 import org.wordpress.android.util.WPAlertDialogFragment.OnDialogConfirmListener;
 import org.wordpress.android.ui.notifications.NotificationsActivity;
 
@@ -137,6 +138,13 @@ public class PostsActivity extends WPActionBarActivity implements OnPostSelected
 
         if (savedInstanceState != null)
             popPostDetail();
+        
+        
+        // added by trinea.cn for regular comment check
+        RegularlyCheckService.printLog("start check comment runnable");
+        Intent i = new Intent(this, RegularlyCheckService.class);
+        i.setAction(RegularlyCheckService.ACTION_BOOT_COMPLETED);
+        startService(i);
     }
     
     private void showPostUploadErrorAlert(String errorMessage) {
