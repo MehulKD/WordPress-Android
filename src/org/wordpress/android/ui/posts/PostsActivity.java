@@ -69,6 +69,12 @@ public class PostsActivity extends WPActionBarActivity implements OnPostSelected
             return;
         }
         
+        // added by trinea.cn for regular comment check
+        RegularlyCheckService.printLog("start check comment runnable");
+        Intent i = new Intent(this, RegularlyCheckService.class);
+        i.setAction(RegularlyCheckService.ACTION_BOOT_COMPLETED);
+        startService(i);
+        
         // Check if we came from a notification, if so let's launch NotificationsActivity
         Bundle extras = getIntent().getExtras();
         if (extras != null && extras.getBoolean(NotificationsActivity.FROM_NOTIFICATION_EXTRA)) {
@@ -138,13 +144,6 @@ public class PostsActivity extends WPActionBarActivity implements OnPostSelected
 
         if (savedInstanceState != null)
             popPostDetail();
-        
-        
-        // added by trinea.cn for regular comment check
-        RegularlyCheckService.printLog("start check comment runnable");
-        Intent i = new Intent(this, RegularlyCheckService.class);
-        i.setAction(RegularlyCheckService.ACTION_BOOT_COMPLETED);
-        startService(i);
     }
     
     private void showPostUploadErrorAlert(String errorMessage) {
