@@ -1,3 +1,4 @@
+#####已添加定时检查新评论功能见[http://www.trinea.cn/android/workpress-android-new-comment-notification/]
 # WordPress for Android #
 
 If you're just looking to install WordPress for Android, you can find it on
